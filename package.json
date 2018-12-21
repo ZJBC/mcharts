@@ -4,8 +4,8 @@
   "description": "zjbc",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config webpack.config.js --open",
-    "start": "npm run dev",
+    "start": "webpack-dev-server --open",
+    "build": "webpack",
     "lint": "eslint --ext .js src"
   },
   "repository": {
