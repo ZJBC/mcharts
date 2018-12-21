@@ -6,13 +6,13 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/dist/'
+    publicPath: './'
   },
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
     inline:true,
     hot:true,
-    compress: true,
+    // compress: true,
     stats: "errors-only",
     port: 9000
   },
@@ -32,6 +32,10 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin({
+      inject: true,
+      filename: 'index.html',
+      template: './index.html'
+    }),
   ]
 }

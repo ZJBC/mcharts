@@ -2,8 +2,11 @@
  * 基础charts
  */
 class baseCharts {
-  constructor() {
-    this.initBase()
+  constructor(args) {
+    console.log("基础组件", args)
+    this.configData = args.data
+    this.config = args
+    // this.initBase()
   }
   initBase() {
     console.log('initBase')
