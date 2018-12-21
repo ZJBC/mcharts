@@ -80,11 +80,10 @@ class Pie extends baseCharts {
     svgPath.forEach((item, index) => {
       let path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
       path.setAttribute('d', item)
-      path.setAttribute('stroke-width', '1')
+      path.setAttribute('stroke-width', '2')
       path.setAttribute('fill', this.config.colors[index])
       this.svgDom.appendChild(path)
-    })
-    
+    }) 
   }
 }
 

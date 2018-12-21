@@ -26,6 +26,6 @@ const mcharts = new Mcharts({
   },
   type: 'pie',
   height: 250,
-  colors: ['#7cd6fd', 'violet', 'blue', 'red',  '']
+  colors: ['#7cd6fd', 'violet', 'blue', 'yellow']
 })
 console.log("发送到发送到发送到", mcharts)

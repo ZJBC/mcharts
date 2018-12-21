@@ -1,21 +1,15 @@
 const webpack = require('webpack')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 module.exports = {
   entry: './index.js',
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: './'
+    // path: path.resolve(__dirname, 'dist'),
+    // publicPath: './'
   },
-  devServer: {
-    contentBase: path.resolve(__dirname, 'dist'),
-    inline:true,
-    hot:true,
-    // compress: true,
-    stats: "errors-only",
-    port: 9000
-  },
+  watch: false,
   module: {
     rules: [
       {
@@ -32,6 +26,13 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new CleanWebpackPlugin(
+      ['dist/main.*.js']
+    ),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor'
+    }),
     new HtmlWebpackPlugin({
       inject: true,
       filename: 'index.html',
