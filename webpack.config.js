@@ -1,20 +1,25 @@
 const webpack = require('webpack')
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
-  entry: '/index.js',
+  entry: './index.js',
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/dist/'
   },
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
+    inline:true,
+    hot:true,
     compress: true,
+    stats: "errors-only",
     port: 9000
   },
   module: {
     rules: [
       {
-        test: /\.js?$/,
+        test: /\.js$/,
         enforce: 'pre',
         use: [{
           loader: 'eslint-loader', 
@@ -26,6 +31,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin()
   ]
 }
