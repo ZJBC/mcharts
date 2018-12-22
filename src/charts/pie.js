@@ -8,17 +8,18 @@
     ClosePath(缩写成Z或z)
  */
 import baseCharts from './baseCharts'
+import Tooltip from '../component/toolTip'
+import util from '../util'
 
 class Pie extends baseCharts {
- 
   constructor(arg) {
     super(arg)
     this.raduis = 50 // 半径
     this.width = 400  // svg
     this.height = 400  // svg
     this.svgDom = null
-    this.domNode = document.createElement('div')
     this.path = null
+    this.tooltip = new Tooltip() // 提示拿过来
     this.init()
   }
   init() {
@@ -95,7 +96,6 @@ class Pie extends baseCharts {
     this.path = pathDom
   }
   addEvent() {
-    const that = this
     const {container} = this.config
     container.addEventListener('mousemove', this.mouseMove.bind(this))
     container.addEventListener('mouseleave', this.mouseLeave.bind(this))
@@ -103,56 +103,18 @@ class Pie extends baseCharts {
   mouseMove(e){
     const {target, pageX, pageY} = e
     const {container} = this.config
-    let rect = this.getBoundingClientRect(container)
+    let rect = util.clientRect(container)
     let endX = pageX - rect.left
     let endY = pageY - rect.top
-    // console.log("的范德萨范德萨", target)
+    const {values} = this.configData.datasets[0]
     if(this.path.includes(target)) {
-      this.changeTooltip(endX, endY)
+      this.tooltip.getPositonTooltip(endX, endY, values, container)
     } else {
-      this.mouseLeave()
+      this.tooltip.getHideTooltip()
     }
   }
   mouseLeave() {
-    this.domNode.style.display = 'none'
-    this.domNode.style.top = '0'
-    this.domNode.style.left = '0'
-  }
-  getBoundingClientRect(element) {
-    let rect = element.getBoundingClientRect()
-    return {
-      top: rect.top,
-      left: rect.left
-    }
-  }
-  changeTooltip(endX, endY) {
-    const {values} = this.configData.datasets[0]
-    const {container} = this.config
-    // this.tooltip.update(x + 2, y + 30, label, values)
-  //  console.log("发撒旦法第三方说的", this.configData)
-   this.clearTooltip()
-    const valueTpls = values.map((item) => {
-      return `<tr>
-        <td>11</td>
-        <td class="number"><i class="color-icon""></i>22</td>
-      </tr>`;
-    });
-    
-    this.domNode.className = `svg-tip`
-    this.domNode.innerHTML = `
-    <div>
-      <span class="title">123</span>
-      <table class="data-list"></table>
-    </div>
-    `;
-    this.domNode.style.top = `${endY}px`; // 上移避免遮挡
-    this.domNode.style.left = `${endX}px`;
-    this.domNode.style.display = 'block';
-    this.domNode.querySelector('.data-list').innerHTML = valueTpls.join('')
-    container.appendChild(this.domNode);
-  }
-  clearTooltip() {
-    this.domNode.innerHTML = '';
+    this.tooltip.getHideTooltip()
   }
 }
 
