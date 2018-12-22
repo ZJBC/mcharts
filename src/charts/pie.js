@@ -17,6 +17,8 @@ class Pie extends baseCharts {
     this.width = 400  // svg
     this.height = 400  // svg
     this.svgDom = null
+    this.domNode = document.createElement('div')
+    this.path = null
     this.init()
   }
   init() {
@@ -30,6 +32,8 @@ class Pie extends baseCharts {
     this.getContainer()
     // 创建svgpath容器
     this.getPathContainer(svgPath)
+    // 添加事件
+    this.addEvent()
     // 渲染 svg
     this.render()
 
@@ -66,7 +70,9 @@ class Pie extends baseCharts {
   }
   render() {
     const {container} = this.config
+    // const pieContainer = document.createElement('div')
     container.appendChild(this.svgDom)
+    // container.appendChild(pieContainer)
   }
   getContainer() {
     let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg:svg')
@@ -77,13 +83,76 @@ class Pie extends baseCharts {
   }
   getPathContainer(svgPath) {
     // <path d="M100 100 A 40 40 0 0 0 140 60" fill="transparent" stroke="#03a9f4" stroke-width="3"/>
+    let pathDom = []
     svgPath.forEach((item, index) => {
       let path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
       path.setAttribute('d', item)
       path.setAttribute('stroke-width', '2')
       path.setAttribute('fill', this.config.colors[index])
+      pathDom.push(path)
       this.svgDom.appendChild(path)
-    }) 
+    })
+    this.path = pathDom
+  }
+  addEvent() {
+    const that = this
+    const {container} = this.config
+    container.addEventListener('mousemove', this.mouseMove.bind(this))
+    container.addEventListener('mouseleave', this.mouseLeave.bind(this))
+  }
+  mouseMove(e){
+    const {target, pageX, pageY} = e
+    const {container} = this.config
+    let rect = this.getBoundingClientRect(container)
+    let endX = pageX - rect.left
+    let endY = pageY - rect.top
+    // console.log("的范德萨范德萨", target)
+    if(this.path.includes(target)) {
+      this.changeTooltip(endX, endY)
+    } else {
+      this.mouseLeave()
+    }
+  }
+  mouseLeave() {
+    this.domNode.style.display = 'none'
+    this.domNode.style.top = '0'
+    this.domNode.style.left = '0'
+  }
+  getBoundingClientRect(element) {
+    let rect = element.getBoundingClientRect()
+    return {
+      top: rect.top,
+      left: rect.left
+    }
+  }
+  changeTooltip(endX, endY) {
+    const {values} = this.configData.datasets[0]
+    const {container} = this.config
+    // this.tooltip.update(x + 2, y + 30, label, values)
+  //  console.log("发撒旦法第三方说的", this.configData)
+   this.clearTooltip()
+    const valueTpls = values.map((item) => {
+      return `<tr>
+        <td>11</td>
+        <td class="number"><i class="color-icon""></i>22</td>
+      </tr>`;
+    });
+    
+    this.domNode.className = `svg-tip`
+    this.domNode.innerHTML = `
+    <div>
+      <span class="title">123</span>
+      <table class="data-list"></table>
+    </div>
+    `;
+    this.domNode.style.top = `${endY}px`; // 上移避免遮挡
+    this.domNode.style.left = `${endX}px`;
+    this.domNode.style.display = 'block';
+    this.domNode.querySelector('.data-list').innerHTML = valueTpls.join('')
+    container.appendChild(this.domNode);
+  }
+  clearTooltip() {
+    this.domNode.innerHTML = '';
   }
 }
 

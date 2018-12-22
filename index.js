@@ -9,7 +9,7 @@ export default class Mcharts {
 
 
 const mcharts = new Mcharts({
-  container: document.getElementById('root'),
+  container: document.getElementById('pie-mcharts'),
   title: 'pie-mcharts',
   data: {
     labels: [
