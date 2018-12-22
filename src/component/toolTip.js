@@ -17,8 +17,7 @@ class Tooltip {
     this.clearTooltip()
     const valueTpls = values.map((item) => {
       return `<div>
-        <p>${item.label}</p>
-        <p class="number">${item.value}</p>
+        <p>label:${item.label}   value:${item.value}</p>
       </div>`
     })
     this.divDom.innerHTML = `
