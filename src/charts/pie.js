@@ -106,15 +106,25 @@ class Pie extends baseCharts {
     let rect = util.clientRect(container)
     let endX = pageX - rect.left
     let endY = pageY - rect.top
-    const {values} = this.configData.datasets[0]
+    const {labels, datasets} = this.configData
+    let configdata = this.getConfigData(labels, datasets[0])
     if(this.path.includes(target)) {
-      this.tooltip.getPositonTooltip(endX, endY, values, container)
+      this.tooltip.getPositonTooltip(endX, endY, configdata, container)
     } else {
       this.tooltip.getHideTooltip()
     }
   }
   mouseLeave() {
     this.tooltip.getHideTooltip()
+  }
+  getConfigData(labels, datasets) {
+    let datas = labels.map(function(item, index){
+      return  {
+        label: item,
+        value: datasets.values[index],
+      }
+    })
+    return datas
   }
 }
 

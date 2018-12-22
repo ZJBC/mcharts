@@ -17,14 +17,14 @@ class Tooltip {
     this.clearTooltip()
     const valueTpls = values.map((item) => {
       return `<div>
-        <p>11</p>
-        <p class="number">22</p>
+        <p>${item.label}</p>
+        <p class="number">${item.value}</p>
       </div>`
     })
     this.divDom.innerHTML = `
     <div>
-      <span class="title">123</span>
-      <table class="data-list"></table>
+      <span class="title">标题</span>
+      <div class="data-list"></div>
     </div>
     `
     this.divDom.style.top = `${endY}px`

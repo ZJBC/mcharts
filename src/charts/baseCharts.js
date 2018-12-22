@@ -4,7 +4,11 @@
 class baseCharts {
   constructor(args) {
     console.log("基础组件", args)
-    this.configData = args.data
+    const { data, type } = args
+    this.configData = data
+    this.labels = data.labels
+    this.title = data.title
+    this.type = type
     this.config = args
     // this.initBase()
   }

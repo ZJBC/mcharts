@@ -20,6 +20,7 @@ const mcharts = new Mcharts({
     ],
     datasets: [
       {
+        title: "pie",
         values: [25, 25, 25, 25]
       }
     ]
