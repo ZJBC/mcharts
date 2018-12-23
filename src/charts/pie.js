@@ -109,7 +109,9 @@ class Pie extends baseCharts {
     const {labels, datasets} = this.configData
     let configdata = this.getConfigData(labels, datasets[0])
     if(this.path.includes(target)) {
-      this.tooltip.getPositonTooltip(endX, endY, configdata, container)
+      let currIndex = this.path.indexOf(target)
+      // console.log("LLLLLLL", configdata[currIndex])
+      this.tooltip.getPositonTooltip(endX, endY, configdata[currIndex], container)
     } else {
       this.tooltip.getHideTooltip()
     }

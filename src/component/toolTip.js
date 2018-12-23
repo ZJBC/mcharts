@@ -15,11 +15,16 @@ class Tooltip {
    */
   getPositonTooltip(endX, endY, values, container) {
     this.clearTooltip()
-    const valueTpls = values.map((item) => {
-      return `<div>
-        <p>label:${item.label}   value:${item.value}</p>
-      </div>`
-    })
+    // const valueTpls = values.map((item) => {
+      // return `<div>
+      //   <p>label:${item.label}   value:${item.value}</p>
+      // </div>`
+    // })
+    const {label, value} = values
+    const valueTpls = `<div>
+       <p>label:${label}</p>
+       <p>value:${value}</p>
+    </div>`
     this.divDom.innerHTML = `
     <div>
       <span class="title">标题</span>
@@ -29,7 +34,7 @@ class Tooltip {
     this.divDom.style.top = `${endY}px`
     this.divDom.style.left = `${endX}px`
     this.divDom.style.display = 'block'
-    this.divDom.querySelector('.data-list').innerHTML = valueTpls.join('')
+    this.divDom.querySelector('.data-list').innerHTML = valueTpls
     container.appendChild(this.divDom)
   }
   clearTooltip() {
