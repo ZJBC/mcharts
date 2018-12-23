@@ -120,7 +120,6 @@ class Pie extends baseCharts {
   hoverSlice(path,i,flag,e){
 		if(!path) return
 		if(flag) {
-      console.log("ffdfas发的所发生的")
       const {pageX, pageY} = e
       const {container} = this.config
       let rect = util.clientRect(container)
@@ -132,13 +131,12 @@ class Pie extends baseCharts {
       util.transForm(path, 'translate3d(3px, 7px, 0px)')
       this.tooltip.getShowTooltip(endX, endY, configdata[i], container)
 		} else {
-      console.log("发生大多数")
 			util.transForm(path,'translate3d(0px, 0px, 0px)')
       this.tooltip.getHideTooltip()
 		}
 	}
   mouseLeave() {
-    this.hoverSlice(this.curActiveSlice,this.curActiveSliceIndex,false)
+    this.hoverSlice(this.pathActive,this.pathActiveIndex,false)
   }
   getConfigData(labels, datasets) {
     let datas = labels.map(function(item, index){
