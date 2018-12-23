@@ -13,7 +13,7 @@ class Tooltip {
    * @param {values} 显示信息
    * @param {container} 添加的容器
    */
-  getPositonTooltip(endX, endY, values, container) {
+  getShowTooltip(endX, endY, values, container) {
     this.clearTooltip()
     // const valueTpls = values.map((item) => {
       // return `<div>

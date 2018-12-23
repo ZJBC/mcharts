@@ -5,6 +5,12 @@ const clientRect = element => {
     left: rect.left
   }
 }
+
+const transForm =(element, style) => {
+  element.style.transform = style
+}
+
 module.exports = {
-  clientRect
+  clientRect,
+  transForm
 }

@@ -19,6 +19,8 @@ class Pie extends baseCharts {
     this.height = 400  // svg
     this.svgDom = null
     this.path = null
+    this.pathActiveSliceIndex = null // 当前path index
+    this.pathActive  = null
     this.tooltip = new Tooltip() // 提示拿过来
     this.init()
   }
@@ -101,23 +103,42 @@ class Pie extends baseCharts {
     container.addEventListener('mouseleave', this.mouseLeave.bind(this))
   }
   mouseMove(e){
-    const {target, pageX, pageY} = e
-    const {container} = this.config
-    let rect = util.clientRect(container)
-    let endX = pageX - rect.left
-    let endY = pageY - rect.top
-    const {labels, datasets} = this.configData
-    let configdata = this.getConfigData(labels, datasets[0])
+    const {target} = e
+    let prevIndex = this.pathActiveIndex
+		let prevAcitve = this.pathActive
     if(this.path.includes(target)) {
-      let currIndex = this.path.indexOf(target)
-      // console.log("LLLLLLL", configdata[currIndex])
-      this.tooltip.getPositonTooltip(endX, endY, configdata[currIndex], container)
+      let i = this.path.indexOf(target)
+      this.hoverSlice(prevAcitve, prevIndex,false)
+      this.pathActive = target
+			this.pathActiveIndex = i
+			this.hoverSlice(target, i, true, e)
     } else {
-      this.tooltip.getHideTooltip()
+      this.mouseLeave()
+      
     }
   }
+  hoverSlice(path,i,flag,e){
+		if(!path) return
+		if(flag) {
+      console.log("ffdfas发的所发生的")
+      const {pageX, pageY} = e
+      const {container} = this.config
+      let rect = util.clientRect(container)
+      let endX = pageX - rect.left
+      let endY = pageY - rect.top
+      const {labels, datasets} = this.configData
+      let configdata = this.getConfigData(labels, datasets[0])
+
+      util.transForm(path, 'translate3d(3px, 7px, 0px)')
+      this.tooltip.getShowTooltip(endX, endY, configdata[i], container)
+		} else {
+      console.log("发生大多数")
+			util.transForm(path,'translate3d(0px, 0px, 0px)')
+      this.tooltip.getHideTooltip()
+		}
+	}
   mouseLeave() {
-    this.tooltip.getHideTooltip()
+    this.hoverSlice(this.curActiveSlice,this.curActiveSliceIndex,false)
   }
   getConfigData(labels, datasets) {
     let datas = labels.map(function(item, index){
