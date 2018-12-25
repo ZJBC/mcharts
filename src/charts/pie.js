@@ -14,7 +14,8 @@ import util from '../util'
 class Pie extends baseCharts {
   constructor(arg) {
     super(arg)
-    this.raduis = 50 // 半径
+    this.grandTotal = 0 // 总数
+    this.raduis = 85 // 半径
     this.width = 400  // svg
     this.height = 400  // svg
     this.svgDom = null
@@ -22,13 +23,18 @@ class Pie extends baseCharts {
     this.pathActiveSliceIndex = null // 当前path index
     this.pathActive  = null
     this.tooltip = new Tooltip() // 提示拿过来
+    this.properties = []  // 所有一开始的角度
+    this.beginAngel = 0 // 开始初始角度
+
     this.init()
   }
   init() {
     // 计算总数量
-    let pieNum = this.getPieNum()
+    this.grandTotal = this.getPieNum()
     // 计算每一项的比例
-    let pieScale = this.getScale(pieNum)
+    let pieScale = this.getScale(this.grandTotal)
+    // 计算每一项的角度
+    this.getAngle()
     // svg path路径
     let svgPath = this.getSvgPath(pieScale)
     // 创建一个svg容器
@@ -46,26 +52,39 @@ class Pie extends baseCharts {
     console.log("数量", values)
     return values.reduce((pre, next) => pre + next)
   }
+  getAngle() {
+    const {values} = this.configData.datasets[0]
+    let a = values.map(total => {
+      return (total/this.grandTotal)*360
+    })
+    this.properties = a.reverse()
+  }
   getScale(pieNum) {
     const {values} = this.configData.datasets[0]
     return values.map(item => item / pieNum)
   }
-  getSvgPath(pieScale) {
+  getSvgPath(pieScale, hoverDiff=0) {
+    console.log("fesfas",pieScale)
+    let startAngle = this.beginAngel
+    let endangle = this.beginAngel
+    let largeFlag = 0
+
     let pathArr = []
-    let start = 90
-    let end = 90
-    pieScale.forEach(element => {
-      end = start + element * Math.PI * 2
-      var x1 = 200 + this.raduis * Math.sin(start)
-      var y1 = 200 - this.raduis * Math.cos(start)
-      var x2 = 200 + this.raduis * Math.sin(end)
-      var y2 = 200 - this.raduis * Math.cos(end)
+    pieScale.forEach((element, index) => {
+      endangle = startAngle + element * Math.PI * 2
+      if (endangle - startAngle > Math.PI) {
+        largeFlag = 1
+      }
+      let x1 = 200 + this.raduis * Math.sin(startAngle)
+      let y1 = 200 - this.raduis * Math.cos(startAngle)
+      let x2 = 200 + this.raduis * Math.sin(endangle)
+      let y2 = 200 - this.raduis * Math.cos(endangle)
       const path = 
-      `M200 200
-      L ${x1} ${y1}
-      A ${this.raduis} ${this.raduis} 0 0 1 ${x2} ${y2}
+      `M${200+hoverDiff} ${200+hoverDiff}
+      L ${x1+hoverDiff} ${y1+hoverDiff}
+      A ${this.raduis} ${this.raduis} 0 ${largeFlag} 1 ${x2+hoverDiff} ${y2+hoverDiff}
       Z`
-      start = end
+      startAngle = endangle
       pathArr.push(path)
     })
     
@@ -73,9 +92,7 @@ class Pie extends baseCharts {
   }
   render() {
     const {container} = this.config
-    // const pieContainer = document.createElement('div')
     container.appendChild(this.svgDom)
-    // container.appendChild(pieContainer)
   }
   getContainer() {
     let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg:svg')
@@ -127,16 +144,44 @@ class Pie extends baseCharts {
       let endY = pageY - rect.top
       const {labels, datasets} = this.configData
       let configdata = this.getConfigData(labels, datasets[0])
-
-      util.transForm(path, 'translate3d(3px, 7px, 0px)')
+      let len = this.properties.length-1
+      util.transForm(path, this.calTranslateByAngle(i,this.properties[len-i]))
       this.tooltip.getShowTooltip(endX, endY, configdata[i], container)
 		} else {
-			util.transForm(path,'translate3d(0px, 0px, 0px)')
+      util.transForm(path,'translate3d(0px, 0px, 0px)')
       this.tooltip.getHideTooltip()
 		}
 	}
   mouseLeave() {
     this.hoverSlice(this.pathActive,this.pathActiveIndex,false)
+  }
+  calTranslateByAngle(i, angle) {
+    console.log("发士大夫撒旦法师的", i)
+    console.log("发斯蒂芬无日峰", this.properties)
+    // let resss = this.properties
+    let len = this.properties.length-1
+
+    let ress = this.properties.reduce(function(pre,cur,index){
+      if(i == len) {
+        return 180
+      }
+      if(index<len-i){
+        return pre+cur
+      }
+      return pre+0
+    },0)
+    let res = 0
+    if(i == len) {
+      res =ress
+    } else {
+      res=ress+180
+    }
+     
+    console.log("打风格大范德萨",res)
+    console.log("fsdfdsfdsdsfgersdff发的都是", angle)
+    const position = util.positionByAngle(res+angle/2, this.raduis)
+    
+    return `translate3d(${(position.x * 0.1)}px, ${(position.y*0.1)}px, 0)`
   }
   getConfigData(labels, datasets) {
     let datas = labels.map(function(item, index){

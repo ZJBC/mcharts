@@ -12,21 +12,18 @@ const mcharts = new Mcharts({
   container: document.getElementById('pie-mcharts'),
   title: 'pie-mcharts',
   data: {
-    labels: [
-      '12am-3am',
-      '3am-6pm',
-      '6am-9am',
-      '9am-12am'
-    ],
+    labels: ["12am-3am", "3am-6am", "6am-9am", "9am-12pm",
+    "12pm-3pm", "3pm-6pm", "6pm-9pm", "9pm-11pm"],
+
     datasets: [
       {
         title: "pie",
-        values: [25, 25, 25, 25]
+        values: [47, 27,96,84,35,17,110,63]
       }
     ]
   },
   type: 'pie',
   height: 250,
-  colors: ['#7cd6fd', 'violet', 'blue', 'yellow']
+  colors: [ 'red', '#7cd6fd','#743ee2','#b554ff', '#f0f4f7','yellow',"red","#743ee2"]
 })
 console.log("发送到发送到发送到", mcharts)
