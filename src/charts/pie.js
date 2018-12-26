@@ -156,11 +156,7 @@ class Pie extends baseCharts {
     this.hoverSlice(this.pathActive,this.pathActiveIndex,false)
   }
   calTranslateByAngle(i, angle) {
-    console.log("发士大夫撒旦法师的", i)
-    console.log("发斯蒂芬无日峰", this.properties)
-    // let resss = this.properties
     let len = this.properties.length-1
-
     let ress = this.properties.reduce(function(pre,cur,index){
       if(i == len) {
         return 180
@@ -176,11 +172,7 @@ class Pie extends baseCharts {
     } else {
       res=ress+180
     }
-     
-    console.log("打风格大范德萨",res)
-    console.log("fsdfdsfdsdsfgersdff发的都是", angle)
     const position = util.positionByAngle(res+angle/2, this.raduis)
-    
     return `translate3d(${(position.x * 0.1)}px, ${(position.y*0.1)}px, 0)`
   }
   getConfigData(labels, datasets) {
