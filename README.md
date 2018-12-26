@@ -1,12 +1,11 @@
 ## 步骤
 *install 安装
-> npm install
+> npm install mcharts
 
-*npm start 启动
->npm start
 
 *如何使用
 ```js
+import { Mcharts } from "mcharts"
 const mcharts = new Mcharts({
   container: document.getElementById('pie-mcharts'),  // dom 节点,
   title: 'pie-mcharts',  // 标题

@@ -7,8 +7,7 @@ module.exports = {
   entry: './index.js',
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist'),
-    // publicPath: './'
+    path: path.resolve(__dirname, 'dist')
   },
   watch: false,
   module: {
@@ -48,11 +47,6 @@ module.exports = {
       inject: true,
       filename: 'index.html',
       template: './index.html'
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
     }),
     new ExtractPlugin("[name].css")
   ]
