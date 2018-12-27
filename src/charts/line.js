@@ -11,6 +11,7 @@ class Line extends AxisCharts  {
   constructor(arg) {
     super(arg)
     this.tooltip = new Tooltip() // 提示拿过来
+    this.yPositionsToolTip = []
     this.init()
   }
   init() {
@@ -25,14 +26,12 @@ class Line extends AxisCharts  {
     container.addEventListener('mouseleave', this.mouseLeave.bind(this))
   }
   mouseMove(e) {
-    console.log("fsdfsdfsdf", e)
     const {container} = this.config
     const {pageX, pageY} = e
     let rect = util.clientRect(container)
     let endX = pageX - rect.left
     let endY = pageY - rect.top
     const activeIndex = Math.floor(endX / this.xPosInterval)
-   console.log("fertfertrertreg防守打法", activeIndex)
     this.hoverSlice(activeIndex,endX,endY,container)
   }
   mouseLeave() {
@@ -47,17 +46,34 @@ class Line extends AxisCharts  {
     })
     return datas
   }
+  getYitemDatas(configData, aindex) {
+    let datas = configData.map(function(item, index){
+      return  item[aindex]
+    })
+    return datas
+  }
   hoverSlice(i,endX,endY,container) {
-    console.log("分割法都是GV地方是", i)
-   
     const {labels,configData} = this
+    let xitem = this.xPositons.concat()
+    let yitem = this.yPositionsToolTip
+    const x = xitem.reverse()[i]
+
     let res = []
+    let yres = []
     for(let aindex in labels) {
       res.push(this.getConfigData(labels[aindex], configData, aindex))
+      yres.push(this.getYitemDatas(yitem, aindex))
     }
-    console.log("范德萨大声道撒", res)
-    this.tooltip.getShowTooltip(endX, endY, res[i], container)
-    
+    this.tooltip.getShowTooltip(x, Math.min(...yres[i]), res[i], container)
+  }
+  getToolTipY(res, indexs) {
+    let datas = res.map(function(item, index){
+      return  item.map(function(items){
+        return  Math.max(items.value)
+      })
+      // return Math.max(...item.values)
+    })
+    return datas
   }
   getLinkLine() {
     // 根绝数据创建g
@@ -68,6 +84,7 @@ class Line extends AxisCharts  {
         "stroke-opacity": "1",
        },'g')
        const {containertem} = this
+     
        let createPath = this.getLinePath(item.values, colors[index])
        gLine.appendChild(createPath)
        containertem.appendChild(gLine)
@@ -76,10 +93,11 @@ class Line extends AxisCharts  {
   }
   getLinePath(values,colors) {
     const yPositions = this.getYPosition(values)
-    yPositions.reverse()
-    console.log("太热太热太热特让他热", yPositions)
-
-    let lineList = yPositions.map((yval, index) => {
+   
+    let yPositionsitem = yPositions.concat()
+    yPositionsitem.reverse()
+    this.yPositionsToolTip.push(yPositions)
+    let lineList = yPositionsitem.map((yval, index) => {
       return `${this.xPositons[index]},${yval}`
     })
     let lineL = lineList.join("L")
