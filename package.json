@@ -1,6 +1,6 @@
 {
   "name": "mcharts",
-  "version": "1.0.3-beta",
+  "version": "1.0.4-beta",
   "description": "zjbc",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,15 @@
     "type": "git",
     "url": "git+https://github.com/ZJBC/mcharts.git"
   },
+  "keywords": [
+    "charts",
+    "svg",
+    "mycharts",
+    "svg-charts",
+    "charts-svg",
+    "base-charts",
+    "base-svg"
+  ],
   "author": "zjbc",
   "license": "ISC",
   "bugs": {
