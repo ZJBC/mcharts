@@ -32,6 +32,6 @@ const mcharts = new Mcharts({
   },
   type: 'line',
   height: 250,
-  colors: [ 'red', '#7cd6fd','#743ee2']
+  colors: [ 'red']
 })
 console.log("发送到发送到发送到", mcharts)

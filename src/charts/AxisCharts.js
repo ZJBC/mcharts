@@ -15,6 +15,8 @@ class AxisCharts extends baseCharts {
     this.drawHeight = 400
     this.drawWidth = 400
     this.config = args
+    this.xPositons = []
+    this.yPositons = []
     this.initAxisY()  // 创建Y
     this.initAxisX()   // 创建X
   }
@@ -25,6 +27,7 @@ class AxisCharts extends baseCharts {
     const xPosInterval = this.drawWidth / 8
     xVal.map((value, index) => {
       const xDiff = this.drawWidth - (xPosInterval * index)
+      this.xPositons.push(xDiff)
       this.drawXAxis(value, xDiff)
     })
   }
@@ -55,6 +58,7 @@ class AxisCharts extends baseCharts {
     const yPosInterval = this.drawHeight / 8
     yVal.map((value, index) => {
       const yDiff = this.drawHeight - (yPosInterval * index)
+      this.yPositons.push(yDiff)
       this.drawYAxis(value, yDiff)
     })
   }
