@@ -14,6 +14,7 @@ class AxisCharts extends baseCharts {
     this.type = type
     this.drawHeight = 400
     this.drawWidth = 400
+    this.diffLen = data.datasets[0].values.length
     this.config = args
     this.xPositons = []
     this.yPositons = []
@@ -24,7 +25,7 @@ class AxisCharts extends baseCharts {
   initAxisX() {
     // 创建X轴数据
     let xVal = this.createAxisX()
-    const xPosInterval = this.drawWidth / 8
+    const xPosInterval = this.drawWidth / this.diffLen
     xVal.map((value, index) => {
       const xDiff = this.drawWidth - (xPosInterval * index)
       this.xPositons.push(xDiff)
@@ -54,8 +55,9 @@ class AxisCharts extends baseCharts {
 
   initAxisY() {
     // 创建Y轴数据
+    console.log("frfarererterre发撒的发生地方都是", this)
     let yVal = this.createAxisY()
-    const yPosInterval = this.drawHeight / 8
+    const yPosInterval = this.drawHeight / this.diffLen
     yVal.map((value, index) => {
       const yDiff = this.drawHeight - (yPosInterval * index)
       this.yPositons.push(yDiff)
@@ -76,9 +78,25 @@ class AxisCharts extends baseCharts {
     return this.getAxisYValue()
   }
   getAxisYValue() {
+
     const {configData} = this
     let confiarr = configData[0].values
-    return confiarr.sort(function(a,b){
+
+    const max = Math.max(...confiarr)
+    const min = Math.min(...confiarr)
+    const interval = (max - min) / this.diffLen + 2
+    const middle = (max + min) / 2
+    const yAxisValues = []
+    for (let i = 0; i < this.diffLen; i++) {
+      const firstValue = middle - interval * 3
+      // const value = firstValue + (interval * i)
+      const value = interval+confiarr[i]
+      yAxisValues.push(Math.floor(value)-5)
+    }
+    
+    console.log("个人供热哥特瑞特让他热我考虑率来看地方 ", confiarr)
+    console.log("水电费发放更多的是", yAxisValues)
+    return yAxisValues.sort(function(a,b){
       return a-b
     })
   }

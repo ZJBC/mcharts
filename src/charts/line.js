@@ -27,12 +27,16 @@ class Line extends AxisCharts  {
 
   }
   getLinePath() {
+    console.log("「」「」「」「」「」「」", this)
     const {colors} = this.config
-     this.yPositons.sort(function(a, b) {
-      return a-b
-    })
-    let lineList = this.yPositons.map((yval, index) => {
-      return `${yval-50},${this.xPositons[index]}`
+    
+    const {values} = this.configData[0]
+    const yPositions = this.getYPosition(values)
+    yPositions.reverse()
+    console.log("太热太热太热特让他热", yPositions)
+
+    let lineList = yPositions.map((yval, index) => {
+      return `${this.xPositons[index]},${yval}`
     })
     let lineL = lineList.join("L")
     let createPath = util.createSVG({
@@ -41,6 +45,16 @@ class Line extends AxisCharts  {
       "style":`stroke:${colors[0]}; fill: none;`
     },'path')
     return createPath
+  }
+  getYPosition(values) {
+    const maxYValue = Math.max(...values)
+    const minYValue = Math.min(...values)
+    const maxYPosition = Math.max(...this.yPositons)
+    const minYPosition = Math.min(...this.yPositons)
+    const yInterval = (maxYPosition - minYPosition) / (maxYValue - minYValue)
+    return values.map((value) => {
+      return minYPosition + ((maxYValue - value) * yInterval)
+    })
   }
 }
 
