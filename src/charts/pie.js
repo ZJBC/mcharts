@@ -131,7 +131,6 @@ class Pie extends baseCharts {
 			this.hoverSlice(target, i, true, e)
     } else {
       this.mouseLeave()
-      
     }
   }
   hoverSlice(path,i,flag,e){

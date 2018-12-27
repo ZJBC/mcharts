@@ -1,6 +1,9 @@
 ## 步骤
-*install 安装
-> npm install mcharts
+* 安装
+> npm install
+
+*启动
+> npm start
 
 
 *如何使用
@@ -23,3 +26,7 @@ const mcharts = new Mcharts({
   colors: [ 'red', '#7cd6fd','#743ee2','#b554ff', '#f0f4f7','yellow',"red","#743ee2"]   // 对应数据的颜色
 })
 ```
+
+
+
+## 在项目中可以使用 npm install mcharts 

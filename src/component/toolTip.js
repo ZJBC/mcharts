@@ -15,16 +15,13 @@ class Tooltip {
    */
   getShowTooltip(endX, endY, values, container) {
     this.clearTooltip()
-    // const valueTpls = values.map((item) => {
-      // return `<div>
-      //   <p>label:${item.label}   value:${item.value}</p>
-      // </div>`
-    // })
-    const {label, value} = values
-    const valueTpls = `<div>
-       <p>label:${label}</p>
-       <p>value:${value}</p>
-    </div>`
+    const valueTpls = values.map((item) => {
+      return `<div>
+                  <p>label:${item.label}</p>
+                  <p>value:${item.value}</p>
+              </div>`
+    })
+
     this.divDom.innerHTML = `
     <div>
       <span class="title">标题</span>

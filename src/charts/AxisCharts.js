@@ -18,6 +18,7 @@ class AxisCharts extends baseCharts {
     this.config = args
     this.xPositons = []
     this.yPositons = []
+    this.xPosInterval = 0
     this.allVal = []
     this.initAxisY()  // 创建Y
     this.initAxisX()   // 创建X
@@ -27,6 +28,7 @@ class AxisCharts extends baseCharts {
     // 创建X轴数据
     let xVal = this.createAxisX()
     const xPosInterval = this.drawWidth / this.diffLen
+    this.xPosInterval = xPosInterval
     xVal.map((value, index) => {
       const xDiff = this.drawWidth - (xPosInterval * index)
       this.xPositons.push(xDiff)
@@ -48,7 +50,8 @@ class AxisCharts extends baseCharts {
   }
   getAxisXValue() {
     const {labels} = this
-    return labels.reverse()
+    let labelsitem = labels.concat().reverse()
+    return labelsitem
   }
 
 
