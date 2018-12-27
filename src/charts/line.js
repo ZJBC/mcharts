@@ -16,21 +16,21 @@ class Line extends AxisCharts  {
     this.getLinkLine()
   }
   getLinkLine() {
-    // 创建一个g
-   let gLine = util.createSVG({
-    "stroke-opacity": "1",
-   },'g')
-   const {containertem} = this
-   let createPath = this.getLinePath()
-   gLine.appendChild(createPath)
-   containertem.appendChild(gLine)
-
-  }
-  getLinePath() {
-    console.log("「」「」「」「」「」「」", this)
+    // 根绝数据创建g
+    const {configData} = this
     const {colors} = this.config
-    
-    const {values} = this.configData[0]
+    configData.map((item, index)=> {
+      let gLine = util.createSVG({
+        "stroke-opacity": "1",
+       },'g')
+       const {containertem} = this
+       let createPath = this.getLinePath(item.values, colors[index])
+       gLine.appendChild(createPath)
+       containertem.appendChild(gLine)
+    })
+  
+  }
+  getLinePath(values,colors) {
     const yPositions = this.getYPosition(values)
     yPositions.reverse()
     console.log("太热太热太热特让他热", yPositions)
@@ -42,7 +42,7 @@ class Line extends AxisCharts  {
     let createPath = util.createSVG({
       "d":`M${lineL}`,
       "stroke-width":2,
-      "style":`stroke:${colors[0]}; fill: none;`
+      "style":`stroke:${colors}; fill: none;`
     },'path')
     return createPath
   }

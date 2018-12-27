@@ -25,13 +25,17 @@ const mcharts = new Mcharts({
     // labels: ["12am-3am", "3am-6am"],
     datasets: [
       {
-        title: "line",
+        title: "line1",
         values: [47, 27,96,84,35,17,110,63]
+      },
+      {
+        title: "line2",
+        values: [20, 40,66,35,84,76,10,110]
       }
     ]
   },
   type: 'line',
   height: 250,
-  colors: [ 'red']
+  colors: [ 'red', '#000']
 })
 console.log("发送到发送到发送到", mcharts)

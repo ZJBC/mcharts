@@ -18,6 +18,7 @@ class AxisCharts extends baseCharts {
     this.config = args
     this.xPositons = []
     this.yPositons = []
+    this.allVal = []
     this.initAxisY()  // 创建Y
     this.initAxisX()   // 创建X
   }
@@ -75,26 +76,31 @@ class AxisCharts extends baseCharts {
     containertem.appendChild(yLine)
   }
   createAxisY() {
-    return this.getAxisYValue()
+    let allVal = []
+    this.configData.forEach(element => {
+      allVal = allVal.concat(element.values)
+    })
+    this.allVal = allVal
+    return this.getAxisYValue(allVal)
   }
-  getAxisYValue() {
+  getAxisYValue(allVal) {
 
-    const {configData} = this
-    let confiarr = configData[0].values
-
-    const max = Math.max(...confiarr)
-    const min = Math.min(...confiarr)
+    // const {configData} = this
+    // let confiarr = configData[0].values
+   console.log("谁发个啥粉色啊",allVal)
+    const max = Math.max(...allVal)
+    const min = Math.min(...allVal)
     const interval = (max - min) / this.diffLen + 2
     const middle = (max + min) / 2
     const yAxisValues = []
     for (let i = 0; i < this.diffLen; i++) {
       const firstValue = middle - interval * 3
-      // const value = firstValue + (interval * i)
-      const value = interval+confiarr[i]
+      const value = firstValue + (interval * i)
+      // const value = interval+allVal[i]
       yAxisValues.push(Math.floor(value)-5)
     }
     
-    console.log("个人供热哥特瑞特让他热我考虑率来看地方 ", confiarr)
+    // console.log("个人供热哥特瑞特让他热我考虑率来看地方 ", confiarr)
     console.log("水电费发放更多的是", yAxisValues)
     return yAxisValues.sort(function(a,b){
       return a-b
