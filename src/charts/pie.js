@@ -137,15 +137,15 @@ class Pie extends baseCharts {
 		if(!path) return
 		if(flag) {
       const {pageX, pageY} = e
-      const {container} = this.config
+      const {container, colors} = this.config
       let rect = util.clientRect(container)
       let endX = pageX - rect.left
       let endY = pageY - rect.top
       const {labels, datasets} = this.configData
-      let configdata = this.getConfigData(labels, datasets[0])
+      let configdata = this.getConfigData(labels, datasets[0], colors)
       let len = this.properties.length-1
       util.transForm(path, this.calTranslateByAngle(i,this.properties[len-i]))
-      this.tooltip.getShowTooltip(endX, endY, configdata[i], container)
+      this.tooltip.getShowTooltip(endX, endY, configdata[i], container, labels[i])
 		} else {
       util.transForm(path,'translate3d(0px, 0px, 0px)')
       this.tooltip.getHideTooltip()
@@ -174,12 +174,14 @@ class Pie extends baseCharts {
     const position = util.positionByAngle(res+angle/2, this.raduis)
     return `translate3d(${(position.x * 0.1)}px, ${(position.y*0.1)}px, 0)`
   }
-  getConfigData(labels, datasets) {
+  getConfigData(labels, datasets, colors) {
     let datas = labels.map(function(item, index){
-      return  {
-        label: item,
+    // let datas = configData.map(function(item){
+      return  [{
+        title: datasets.title,
         value: datasets.values[index],
-      }
+        colors: colors[index]
+      }]
     })
     return datas
   }

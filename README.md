@@ -9,21 +9,33 @@
 *如何使用
 ```js
 import { Mcharts } from "mcharts"
-const mcharts = new Mcharts({
-  container: document.getElementById('pie-mcharts'),  // dom 节点,
-  title: 'pie-mcharts',  // 标题
-  data: {
-    labels: ["12am-3am", "3am-6am", "6am-9am", "9am-12pm",
-    "12pm-3pm", "3pm-6pm", "6pm-9pm", "9pm-11pm"],  // 所需label
-    datasets: [
-      {
-        title: "pie",
-        values: [47, 27,96,84,35,17,110,63]       // 所需数据
-      }
-    ]
-  },
-  type: 'pie',   // 类型   pie饼图   line线
-  colors: [ 'red', '#7cd6fd','#743ee2','#b554ff', '#f0f4f7','yellow',"red","#743ee2"]   // 对应数据的颜色
+  new Mcharts({
+    container: document.getElementById('line-mcharts'),
+    title: 'line-mcharts',
+    data: {
+      labels: ["a1", "a2","a3","a4","a5","a6","a7","a8"],  // pie
+      // labels: ["12am-3am", "3am-6am"],   // line
+      datasets: [
+        {
+          title: "line1",
+          values: [47, 27,96,84,35,17,110,63]
+        },
+        {
+          title: "line2",
+          values: [20, 40,66,35,84,76,10,110]
+        },
+        {
+          title: "line3",
+          values: [10, 50,6,35,84,66,90,70]
+        }
+      ]
+    },
+    // type: 'line',
+    // colors: [ 'red', '#000', '#7cd6fd']
+    
+    type: 'pie', //  现在支持  pie饼图  line 折线图
+    colors: [ 'red', '#000', '#7cd6fd', '#000', 'red', '#7cd6fd', '#ccc', 'blue']
+  })
 })
 ```
 

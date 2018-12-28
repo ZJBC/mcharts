@@ -38,9 +38,8 @@ const drawY = (x1, x2, yDiff, yTextDiff, yTextValue) => {
     x2: x2,
     y1: 0,
     y2: 0,
-    "stroke-width": 2,
+    "stroke-width": 1,
     "stroke": "#dadada",
-    "stroke": "rgb(99,99,99)",
   },"line")
   let drawYg = createSVG({
     "stroke-opacity": 1,
@@ -48,7 +47,7 @@ const drawY = (x1, x2, yDiff, yTextDiff, yTextValue) => {
   },"g")
   let drawYtest = createSVG({
     x:0,
-    y:yTextDiff,
+    y:yTextDiff+4, // 将文字放在线的中间
     text: yTextValue.toString()
   }, 'text')
   drawYg.appendChild(drawYline)
@@ -59,19 +58,18 @@ const drawX = (y2, xDiff, xTextDiff, xTextValue) => {
   let drawXline = createSVG({
     x1: 0,
     x2: 0,
-    y1: 15,
-    y2: y2-15,
-    "stroke-width": 2,
+    y1: 30,
+    y2: y2-30,
+    "stroke-width": 1,
     "stroke": "#dadada",
-    "stroke": "rgb(99,99,99)",
   },"line")
   let drawXg = createSVG({
     "stroke-opacity": 1,
     "transform": `translate(${xDiff}, 0)`
   },"g")
   let drawXtest = createSVG({
-    x:-15,
-    y:y2-5,
+    x:-10,
+    y:y2-10,
     text: xTextValue
   }, 'text')
   drawXg.appendChild(drawXline)

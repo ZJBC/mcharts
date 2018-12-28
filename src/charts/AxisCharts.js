@@ -10,7 +10,7 @@ class AxisCharts extends baseCharts {
     const { data, type, title } = args
     this.configData = data.datasets
     this.labels = data.labels
-    this.title = title
+    this.chartsTitle = title
     this.type = type
     this.drawHeight = 400
     this.drawWidth = 400
@@ -70,11 +70,11 @@ class AxisCharts extends baseCharts {
   }
   drawYAxis(yTextValue, yDiff) {
     const {containertem} = this
-    const x1 = 6
+    const x1 = 30
     const yTextDiff = 0
     let rect = util.clientRect(containertem)
     const {width} = rect
-    const yLine = util.drawY(x1, width - 15, yDiff, yTextDiff, yTextValue)
+    const yLine = util.drawY(x1, width - 30, yDiff, yTextDiff, yTextValue)
     
     containertem.appendChild(yLine)
   }

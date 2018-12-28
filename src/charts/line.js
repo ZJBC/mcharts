@@ -32,28 +32,35 @@ class Line extends AxisCharts  {
     let endX = pageX - rect.left
     let endY = pageY - rect.top
     const activeIndex = Math.floor(endX / this.xPosInterval)
-    this.hoverSlice(activeIndex,endX,endY,container)
+    if(activeIndex>=this.diffLen) {
+      this.mouseLeave()
+    } else {
+      this.hoverSlice(activeIndex, container)
+    }
   }
   mouseLeave() {
     this.tooltip.getHideTooltip()
   }
-  getConfigData(labels, configData, aindex) {
+  getConfigData(labels, configData, aindex, colors) {
     let datas = configData.map(function(item, index){
       return  {
-        label: labels,
+        title: item.title,
         value: item.values[aindex],
+        colors: colors[index]
       }
     })
     return datas
   }
   getYitemDatas(configData, aindex) {
+    // console.log("儿童热特瑞特人员投入和认同", configData)
     let datas = configData.map(function(item, index){
       return  item[aindex]
     })
     return datas
   }
-  hoverSlice(i,endX,endY,container) {
+  hoverSlice(i,container) {
     const {labels,configData} = this
+    const {colors} = this.config
     let xitem = this.xPositons.concat()
     let yitem = this.yPositionsToolTip
     const x = xitem.reverse()[i]
@@ -61,17 +68,16 @@ class Line extends AxisCharts  {
     let res = []
     let yres = []
     for(let aindex in labels) {
-      res.push(this.getConfigData(labels[aindex], configData, aindex))
+      res.push(this.getConfigData(labels[aindex], configData, aindex, colors))
       yres.push(this.getYitemDatas(yitem, aindex))
     }
-    this.tooltip.getShowTooltip(x, Math.min(...yres[i]), res[i], container)
+    this.tooltip.getShowTooltip(x, Math.min(...yres[i]), res[i], container, labels[i])
   }
   getToolTipY(res, indexs) {
     let datas = res.map(function(item, index){
       return  item.map(function(items){
         return  Math.max(items.value)
       })
-      // return Math.max(...item.values)
     })
     return datas
   }
@@ -103,7 +109,7 @@ class Line extends AxisCharts  {
     let lineL = lineList.join("L")
     let createPath = util.createSVG({
       "d":`M${lineL}`,
-      "stroke-width":2,
+      "stroke-width":1,
       "style":`stroke:${colors}; fill: none;`
     },'path')
     return createPath

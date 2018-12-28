@@ -1,6 +1,6 @@
 /* tooltip */
 svg {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   height: 450px;
   width: 450px;
 }
@@ -23,4 +23,25 @@ svg {
   text-align: left;
   transition: top 200ms ease-in-out, left 200ms ease-in-out;
   display: none;
+}
+.data-list-circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 2px;
+}
+.data-list-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.data-list-title {
+  flex: 1;
+  text-align: right;
+}
+.data-list-val {
+  width: 40px;
+  text-align: left;
+  margin-left: 5px;
 }
