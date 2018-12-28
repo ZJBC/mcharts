@@ -1,6 +1,6 @@
 {
   "name": "mcharts",
-  "version": "1.0.4-beta",
+  "version": "1.0.5-beta",
   "description": "zjbc",
   "main": "index.js",
   "scripts": {
