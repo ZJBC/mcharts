@@ -8,8 +8,12 @@ svg {
   max-width: 800px;
   margin: 0 auto;
   position: relative;
-  width: 400px;
-  height: 400px;
+  width: 480px;
+  height: 480px;
+  border: 1px solid #d1d8dd;
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: center; */
 }
 .mcharts-tip {
   position: absolute;
@@ -23,6 +27,18 @@ svg {
   text-align: left;
   transition: top 200ms ease-in-out, left 200ms ease-in-out;
   display: none;
+}
+.mcharts-tip::before{
+  content: '';
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top-color: #000;
+  position: absolute;
+  margin-left: -10px;
+  bottom: -20px;
+  left: 50%;
+  opacity: 0.8;
 }
 .data-list-circle {
   width: 10px;
@@ -44,4 +60,13 @@ svg {
   width: 40px;
   text-align: left;
   margin-left: 5px;
+}
+.mcharts-container-line {
+  position: relative;
+}
+.chart-container {
+  padding-left: 30px
+}
+.mcharts-container-chartstitle {
+  padding: 5px;
 }

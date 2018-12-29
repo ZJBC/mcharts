@@ -17,30 +17,55 @@ export default class Mcharts {
     }   
   }
 }
-// new Mcharts({
-//   container: document.getElementById('line-mcharts'),
-//   title: 'line-mcharts',
-//   data: {
-//     labels: ["a1", "a2","a3","a4","a5","a6","a7","a8"],
-//     // labels: ["12am-3am", "3am-6am"],
-//     datasets: [
-//       {
-//         title: "line1",
-//         values: [47, 27,96,84,35,17,110,63]
-//       },
-//       {
-//         title: "line2",
-//         values: [20, 40,66,35,84,76,10,110]
-//       },
-//       {
-//         title: "line3",
-//         values: [10, 50,6,35,84,66,90,70]
-//       }
-//     ]
-//   },
-//   // type: 'pie',
-//   // colors: [ 'red', '#000', '#7cd6fd']
+new Mcharts({
+  container: document.getElementById('line-mcharts'),
+  title: 'line-mcharts',
+  data: {
+    labels: ["a1", "a2","a3","a4","a5","a6","a7","a8"],
+    // labels: ["12am-3am", "3am-6am"],
+    datasets: [
+      {
+        title: "line1111",
+        values: [47, 27,96,84,35,17,110,63]
+      },
+      {
+        title: "line1111",
+        values: [47, 27,96,84,35,17,110,54]
+      },
+      {
+        title: "line1111",
+        values: [90, 27,66,84,75,17,64,63]
+      },
+      // {
+      //   title: "line1111",
+      //   values: [78, 27,46,84,35,17,34,63]
+      // },
+      // {
+      //   title: "line1111",
+      //   values: [34, 27,96,84,35,17,110,65]
+      // },
+      // {
+      //   title: "line1111",
+      //   values: [63, 27,96,84,35,17,67,76]
+      // },
+      // {
+      //   title: "line1111",
+      //   values: [86, 27,96,56,54,17,110,78]
+      // },
+      // {
+      //   title: "line1111",
+      //   values: [90, 83,96,84,12,17,110,90]
+      // },
+      // {
+      //   title: "line1111",
+      //   values: [47, 27,91,86,37,17,110,84]
+      // }
+    ]
+  },
+  // width: 800,
+  type: 'line',
+  colors: [ 'red', '#000', '#7cd6fd']
   
-//   type: 'pie',
-//   colors: [ 'red', '#000', '#7cd6fd', '#000', 'red', '#7cd6fd', '#ccc', 'blue']
-// })
+  // type: 'pie',
+  // colors: [ 'red', '#000', '#7cd6fd', '#000', 'red', '#7cd6fd', '#ccc', 'blue']
+})

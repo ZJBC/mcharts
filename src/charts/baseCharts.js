@@ -5,28 +5,37 @@ import util from '../util'
 class baseCharts {
   constructor(args) {
     console.log("基础组件", args)
-    const { data, type, container } = args
+    const { data, type, container, title} = args
     this.configData = data
     this.labels = data.labels
-    this.title = data.title
+    this.chartsTitle = title
     this.type = type
     this.config = args
-    this.containertem = container
+    this.containertem = null
+    this.lineContainer = null
 
-    // this.initBase()
-    if(type === 'line') {
+    this.initBaseContainer(container)
+  }
+  initBaseContainer(container) {
+    const containerHtml = `
+    <div class="mcharts-container-chartstitle">${this.chartsTitle}</div>
+    <div class="chart-container">
+      <div class="mcharts-container-chartsline"></div>
+    </div>`
+    container.innerHTML = containerHtml  // 设置外层容器
+    this.lineContainer = container.querySelector('.mcharts-container-chartsline')
+
+    if(this.type === 'line') {
       let svgDom = util.createSVG({
         width: 400,
         height: 400,
         xmlns: "http://www.w3.org/2000/svg"
       },'svg')
-      container.appendChild(svgDom)
+      this.lineContainer.appendChild(svgDom)
+      // container.appendChild(svgDom)
       this.containertem = svgDom
-      
     }
-  }
-  initBase() {
-    console.log('initBase')
+
   }
 }
 

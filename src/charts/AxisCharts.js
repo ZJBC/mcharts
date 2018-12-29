@@ -7,10 +7,9 @@ class AxisCharts extends baseCharts {
   constructor(args) {
     super(args)
     console.log("基础组件11", args)
-    const { data, type, title } = args
+    const { data, type } = args
     this.configData = data.datasets
     this.labels = data.labels
-    this.chartsTitle = title
     this.type = type
     this.drawHeight = 400
     this.drawWidth = 400
@@ -36,7 +35,6 @@ class AxisCharts extends baseCharts {
     })
   }
   drawXAxis(xTextValue, xDiff) {
-
     const {containertem} = this
     let rect = util.clientRect(containertem)
     let xTextDiff = 4

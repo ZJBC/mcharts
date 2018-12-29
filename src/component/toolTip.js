@@ -5,6 +5,7 @@ class Tooltip {
   constructor() {
     this.divDom = document.createElement('div') // 每次经过创建一个div
     this.divDom.className = 'mcharts-tip'
+    this.divDom.id = 'mcharts-tip'
   }
   /**
    * 
@@ -15,7 +16,6 @@ class Tooltip {
    * @param {label} tooltip标题
    */
   getShowTooltip(endX, endY, values, container, label) {
-    console.log("加热itueirturereqwen", values)
     this.clearTooltip()
     const tooltipVal = values.map((item) => {
       return `<div class="data-list-nav"><div class="data-list-title">${item.title}:</div><div class="data-list-val"><span class="data-list-circle" style="background:${item.colors}"></span>${item.value}</div></div>`

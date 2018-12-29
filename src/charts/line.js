@@ -21,21 +21,23 @@ class Line extends AxisCharts  {
     this.addLineEvent()
   }
   addLineEvent() {
-    const {container} = this.config
-    container.addEventListener('mousemove', this.mouseMove.bind(this))
-    container.addEventListener('mouseleave', this.mouseLeave.bind(this))
+    // const {container} = this.config
+    const {lineContainer} = this
+    lineContainer.addEventListener('mousemove', this.mouseMove.bind(this))
+    lineContainer.addEventListener('mouseleave', this.mouseLeave.bind(this))
   }
   mouseMove(e) {
-    const {container} = this.config
+    // const {container} = this.config
+    const {lineContainer} = this
     const {pageX, pageY} = e
-    let rect = util.clientRect(container)
+    let rect = util.clientRect(lineContainer)
     let endX = pageX - rect.left
     let endY = pageY - rect.top
     const activeIndex = Math.floor(endX / this.xPosInterval)
     if(activeIndex>=this.diffLen) {
       this.mouseLeave()
     } else {
-      this.hoverSlice(activeIndex, container)
+      this.hoverSlice(activeIndex, lineContainer)
     }
   }
   mouseLeave() {
@@ -58,12 +60,11 @@ class Line extends AxisCharts  {
     })
     return datas
   }
-  hoverSlice(i,container) {
+  hoverSlice(i,lineContainer) {
     const {labels,configData} = this
     const {colors} = this.config
     let xitem = this.xPositons.concat()
     let yitem = this.yPositionsToolTip
-    const x = xitem.reverse()[i]
 
     let res = []
     let yres = []
@@ -71,7 +72,20 @@ class Line extends AxisCharts  {
       res.push(this.getConfigData(labels[aindex], configData, aindex, colors))
       yres.push(this.getYitemDatas(yitem, aindex))
     }
-    this.tooltip.getShowTooltip(x, Math.min(...yres[i]), res[i], container, labels[i])
+    
+    let height = null
+    let width = null
+    let mchartstip = document.getElementById('mcharts-tip')
+    if(mchartstip) {
+      let mchartsTipClient = util.clientRect(mchartstip)
+      console.log("范德萨发的所发生的", mchartsTipClient)
+      height = mchartsTipClient.height
+      width = mchartsTipClient.width
+    }
+    let y = height? Math.min(...yres[i])-height+20 :Math.min(...yres[i])
+    let x = width? xitem.reverse()[i]-width/2+31: xitem.reverse()[i]
+    
+    this.tooltip.getShowTooltip(x, y, res[i], lineContainer, labels[i])
   }
   getToolTipY(res, indexs) {
     let datas = res.map(function(item, index){
