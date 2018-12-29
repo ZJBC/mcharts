@@ -57,7 +57,6 @@ class AxisCharts extends baseCharts {
 
   initAxisY() {
     // 创建Y轴数据
-    console.log("frfarererterre发撒的发生地方都是", this)
     let yVal = this.createAxisY()
     const yPosInterval = this.drawHeight / this.diffLen
     yVal.map((value, index) => {
@@ -86,9 +85,6 @@ class AxisCharts extends baseCharts {
   }
   getAxisYValue(allVal) {
 
-    // const {configData} = this
-    // let confiarr = configData[0].values
-   console.log("谁发个啥粉色啊",allVal)
     const max = Math.max(...allVal)
     const min = Math.min(...allVal)
     const interval = (max - min) / this.diffLen + 2
@@ -100,8 +96,6 @@ class AxisCharts extends baseCharts {
       // const value = interval+allVal[i]
       yAxisValues.push(Math.floor(value)-5)
     }
-    
-    // console.log("个人供热哥特瑞特让他热我考虑率来看地方 ", confiarr)
     console.log("水电费发放更多的是", yAxisValues)
     return yAxisValues.sort(function(a,b){
       return a-b

@@ -21,13 +21,11 @@ class Line extends AxisCharts  {
     this.addLineEvent()
   }
   addLineEvent() {
-    // const {container} = this.config
     const {lineContainer} = this
     lineContainer.addEventListener('mousemove', this.mouseMove.bind(this))
     lineContainer.addEventListener('mouseleave', this.mouseLeave.bind(this))
   }
   mouseMove(e) {
-    // const {container} = this.config
     const {lineContainer} = this
     const {pageX, pageY} = e
     let rect = util.clientRect(lineContainer)
@@ -54,7 +52,6 @@ class Line extends AxisCharts  {
     return datas
   }
   getYitemDatas(configData, aindex) {
-    // console.log("儿童热特瑞特人员投入和认同", configData)
     let datas = configData.map(function(item, index){
       return  item[aindex]
     })
@@ -78,7 +75,6 @@ class Line extends AxisCharts  {
     let mchartstip = document.getElementById('mcharts-tip')
     if(mchartstip) {
       let mchartsTipClient = util.clientRect(mchartstip)
-      console.log("范德萨发的所发生的", mchartsTipClient)
       height = mchartsTipClient.height
       width = mchartsTipClient.width
     }
@@ -106,8 +102,12 @@ class Line extends AxisCharts  {
        const {containertem} = this
      
        let createPath = this.getLinePath(item.values, colors[index])
+
+       let createCircleg = this.getCircleG()
+       this.getCircle(item.values, colors[index], createCircleg, gLine)
+
        gLine.appendChild(createPath)
-       containertem.appendChild(gLine)
+       containertem.appendChild(gLine)  // 连线
     })
   
   }
@@ -137,6 +137,28 @@ class Line extends AxisCharts  {
     return values.map((value) => {
       return minYPosition + ((maxYValue - value) * yInterval)
     })
+  }
+  getCircle(values, colors, createCircleg, gLine) {
+    const yPositions = this.getYPosition(values)
+   
+    let yPositionsitem = yPositions.concat()
+    yPositionsitem.reverse()
+    this.yPositionsToolTip.push(yPositions)
+    yPositionsitem.map((yval, index) => {
+      let createCircle = util.createSVG({
+        "fill":`${colors}`,
+        "cx": `${this.xPositons[index]}`,
+        "cy": `${yval}`,
+        "r": "5" 
+      },'circle')
+      createCircleg.appendChild(createCircle)
+      gLine.appendChild(createCircleg) // 连线间的圆
+    })
+  }
+  // 创建getCircleG
+  getCircleG() {
+    let createG = util.createSVG({},'g')
+    return createG
   }
 }
 

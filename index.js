@@ -26,7 +26,7 @@ new Mcharts({
     datasets: [
       {
         title: "line1111",
-        values: [47, 27,96,84,35,17,110,63]
+        values: [80, 47,26,64,53,71,10,83]
       },
       {
         title: "line1111",
