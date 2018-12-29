@@ -1,11 +1,7 @@
 /* tooltip */
-svg {
-  /* border: 1px solid red; */
-  /* height: 450px; */
-  /* width: 450px; */
-}
+
 .container {
-  max-width: 800px;
+  /* max-width: 800px; */
   margin: 0 auto;
   position: relative;
   width: 100%;

@@ -36,7 +36,6 @@ class AxisCharts extends baseCharts {
     const {containertem} = this
     let rect = util.clientRect(containertem)
     let xTextDiff = 4
-    console.log("发撒的发生的范德萨发士大夫似的瑞特人委托", rect)
     const {height} = rect
     const xLine = util.drawX(height-10, xDiff, xTextDiff, xTextValue)
     
