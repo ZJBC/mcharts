@@ -21,21 +21,21 @@ class Line extends AxisCharts  {
     this.addLineEvent()
   }
   addLineEvent() {
-    const {lineContainer} = this
-    lineContainer.addEventListener('mousemove', this.mouseMove.bind(this))
-    lineContainer.addEventListener('mouseleave', this.mouseLeave.bind(this))
+    const {mchartsContainer} = this
+    mchartsContainer.addEventListener('mousemove', this.mouseMove.bind(this))
+    mchartsContainer.addEventListener('mouseleave', this.mouseLeave.bind(this))
   }
   mouseMove(e) {
-    const {lineContainer} = this
+    const {mchartsContainer} = this
     const {pageX, pageY} = e
-    let rect = util.clientRect(lineContainer)
+    let rect = util.clientRect(mchartsContainer)
     let endX = pageX - rect.left
     let endY = pageY - rect.top
     const activeIndex = Math.floor(endX / this.xPosInterval)
     if(activeIndex>=this.diffLen) {
       this.mouseLeave()
     } else {
-      this.hoverSlice(activeIndex, lineContainer)
+      this.hoverSlice(activeIndex, mchartsContainer)
     }
   }
   mouseLeave() {
@@ -57,7 +57,7 @@ class Line extends AxisCharts  {
     })
     return datas
   }
-  hoverSlice(i,lineContainer) {
+  hoverSlice(i,mchartsContainer) {
     const {labels,configData} = this
     const {colors} = this.config
     let xitem = this.xPositons.concat()
@@ -81,7 +81,7 @@ class Line extends AxisCharts  {
     let y = height? Math.min(...yres[i])-25 :Math.min(...yres[i])
     let x = width? xitem.reverse()[i]-12: xitem.reverse()[i]
     console.log("噶的说法是官方特瑞特认为", y)
-    this.tooltip.getShowTooltip(x, y, res[i], lineContainer, labels[i])
+    this.tooltip.getShowTooltip(x, y, res[i], mchartsContainer, labels[i])
   }
   getToolTipY(res, indexs) {
     let datas = res.map(function(item, index){

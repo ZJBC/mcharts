@@ -62,10 +62,11 @@ new Mcharts({
       // }
     ]
   },
-  width: 800,
-  type: 'line',
-  colors: [ 'red', '#000', '#7cd6fd']
+  width: 400,
+  // type: 'line',
+  // colors: [ 'red', '#000', '#7cd6fd']
   
-  // type: 'pie',
-  // colors: [ 'red', '#000', '#7cd6fd', '#000', 'red', '#7cd6fd', '#ccc', 'blue']
+  type: 'pie',
+  colors: [ 'red', '#000', '#7cd6fd', '#000', 'red', '#7cd6fd', '#ccc', 'blue'],
+  radius: 80
 })

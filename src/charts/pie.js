@@ -15,9 +15,7 @@ class Pie extends baseCharts {
   constructor(arg) {
     super(arg)
     this.grandTotal = 0 // 总数
-    this.raduis = 85 // 半径
-    this.width = 400  // svg
-    this.height = 400  // svg
+    // this.raduis = 85 // 半径
     this.svgDom = null
     this.path = null
     this.pathActiveSliceIndex = null // 当前path index
@@ -91,14 +89,13 @@ class Pie extends baseCharts {
     return pathArr
   }
   render() {
-    const {container} = this.config
-    container.appendChild(this.svgDom)
+    this.mchartsContainer.appendChild(this.svgDom)
   }
   getContainer() {
     let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg:svg')
-    svg.setAttribute('width', this.width + '')
-    svg.setAttribute('height', this.height + '')
-    svg.setAttribute('viewBox', '0 0 ' + this.width + ' ' + this.height)
+    svg.setAttribute('width', this.chartsWidth + '')
+    svg.setAttribute('height', this.chartsHeight + '')
+    svg.setAttribute('viewBox', '0 0 ' + this.chartsWidth + ' ' + this.chartsHeight)
     this.svgDom = svg
   }
   getPathContainer(svgPath) {
@@ -115,9 +112,8 @@ class Pie extends baseCharts {
     this.path = pathDom
   }
   addEvent() {
-    const {container} = this.config
-    container.addEventListener('mousemove', this.mouseMove.bind(this))
-    container.addEventListener('mouseleave', this.mouseLeave.bind(this))
+    this.mchartsContainer.addEventListener('mousemove', this.mouseMove.bind(this))
+    this.mchartsContainer.addEventListener('mouseleave', this.mouseLeave.bind(this))
   }
   mouseMove(e){
     const {target} = e
@@ -137,15 +133,16 @@ class Pie extends baseCharts {
 		if(!path) return
 		if(flag) {
       const {pageX, pageY} = e
-      const {container, colors} = this.config
-      let rect = util.clientRect(container)
+      const {colors} = this.config
+      const {mchartsContainer} = this
+      let rect = util.clientRect(mchartsContainer)
       let endX = pageX - rect.left
       let endY = pageY - rect.top
       const {labels, datasets} = this.configData
       let configdata = this.getConfigData(labels, datasets[0], colors)
       let len = this.properties.length-1
       util.transForm(path, this.calTranslateByAngle(i,this.properties[len-i]))
-      this.tooltip.getShowTooltip(endX, endY, configdata[i], container, labels[i])
+      this.tooltip.getShowTooltip(endX, endY, configdata[i], mchartsContainer, labels[i])
 		} else {
       util.transForm(path,'translate3d(0px, 0px, 0px)')
       this.tooltip.getHideTooltip()
