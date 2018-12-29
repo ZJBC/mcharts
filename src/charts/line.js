@@ -78,9 +78,9 @@ class Line extends AxisCharts  {
       height = mchartsTipClient.height
       width = mchartsTipClient.width
     }
-    let y = height? Math.min(...yres[i])-height+20 :Math.min(...yres[i])
-    let x = width? xitem.reverse()[i]-width/2+31: xitem.reverse()[i]
-    
+    let y = height? Math.min(...yres[i])-25 :Math.min(...yres[i])
+    let x = width? xitem.reverse()[i]-12: xitem.reverse()[i]
+    console.log("噶的说法是官方特瑞特认为", y)
     this.tooltip.getShowTooltip(x, y, res[i], lineContainer, labels[i])
   }
   getToolTipY(res, indexs) {

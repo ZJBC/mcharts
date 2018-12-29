@@ -62,7 +62,7 @@ new Mcharts({
       // }
     ]
   },
-  // width: 800,
+  width: 800,
   type: 'line',
   colors: [ 'red', '#000', '#7cd6fd']
   

@@ -58,8 +58,8 @@ const drawX = (y2, xDiff, xTextDiff, xTextValue) => {
   let drawXline = createSVG({
     x1: 0,
     x2: 0,
-    y1: 30,
-    y2: y2-30,
+    y1: 0,
+    y2: y2,
     "stroke-width": 1,
     "stroke": "#dadada",
   },"line")
@@ -69,7 +69,7 @@ const drawX = (y2, xDiff, xTextDiff, xTextValue) => {
   },"g")
   let drawXtest = createSVG({
     x:-10,
-    y:y2-10,
+    y:y2+10,
     text: xTextValue
   }, 'text')
   drawXg.appendChild(drawXline)

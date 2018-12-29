@@ -11,8 +11,6 @@ class AxisCharts extends baseCharts {
     this.configData = data.datasets
     this.labels = data.labels
     this.type = type
-    this.drawHeight = 400
-    this.drawWidth = 400
     this.diffLen = data.datasets[0].values.length
     this.config = args
     this.xPositons = []
@@ -26,10 +24,10 @@ class AxisCharts extends baseCharts {
   initAxisX() {
     // 创建X轴数据
     let xVal = this.createAxisX()
-    const xPosInterval = this.drawWidth / this.diffLen
+    const xPosInterval = this.chartsWidth / this.diffLen
     this.xPosInterval = xPosInterval
     xVal.map((value, index) => {
-      const xDiff = this.drawWidth - (xPosInterval * index)
+      const xDiff = this.chartsWidth - (xPosInterval * index)-20
       this.xPositons.push(xDiff)
       this.drawXAxis(value, xDiff)
     })
@@ -38,8 +36,9 @@ class AxisCharts extends baseCharts {
     const {containertem} = this
     let rect = util.clientRect(containertem)
     let xTextDiff = 4
+    console.log("发撒的发生的范德萨发士大夫似的瑞特人委托", rect)
     const {height} = rect
-    const xLine = util.drawX(height, xDiff, xTextDiff, xTextValue)
+    const xLine = util.drawX(height-10, xDiff, xTextDiff, xTextValue)
     
     containertem.appendChild(xLine)
   }
@@ -58,20 +57,20 @@ class AxisCharts extends baseCharts {
   initAxisY() {
     // 创建Y轴数据
     let yVal = this.createAxisY()
-    const yPosInterval = this.drawHeight / this.diffLen
+    const yPosInterval = this.chartsHeight / this.diffLen
     yVal.map((value, index) => {
-      const yDiff = this.drawHeight - (yPosInterval * index)
+      const yDiff = this.chartsHeight - (yPosInterval * index)-25
       this.yPositons.push(yDiff)
       this.drawYAxis(value, yDiff)
     })
   }
   drawYAxis(yTextValue, yDiff) {
     const {containertem} = this
-    const x1 = 30
+    const x1 = 0
     const yTextDiff = 0
     let rect = util.clientRect(containertem)
     const {width} = rect
-    const yLine = util.drawY(x1, width - 30, yDiff, yTextDiff, yTextValue)
+    const yLine = util.drawY(x1+24, width - 10, yDiff, yTextDiff, yTextValue)
     
     containertem.appendChild(yLine)
   }
