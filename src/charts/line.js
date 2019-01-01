@@ -7,12 +7,29 @@ import AxisCharts from './AxisCharts'
 import Tooltip from '../component/toolTip'
 import util from '../util'
 
+let BOUND_DRAW_FN;
 class Line extends AxisCharts  {
   constructor(arg) {
     super(arg)
     this.tooltip = new Tooltip() // 提示拿过来
     this.yPositionsToolTip = []
     this.init()
+   
+    this.configs()
+  }
+  resizeDraw() {
+    util.mchartsThrottle(this.renderLine.bind(this), 1000)()
+  }
+  renderLine() {
+    let doms = document.getElementById('line-mcharts')
+    let rect = util.clientRect(doms)
+    this.chartsWidth = rect.width
+    this.createElement()
+    this.renderAxis()
+    this.init()
+  }
+  configs() {
+		window.addEventListener('resize', this.resizeDraw.bind(this))
   }
   init() {
     // 链接点之间的线
@@ -138,6 +155,7 @@ class Line extends AxisCharts  {
     })
   }
   getCircle(values, colors, createCircleg, gLine) {
+
     const yPositions = this.getYPosition(values)
    
     let yPositionsitem = yPositions.concat()

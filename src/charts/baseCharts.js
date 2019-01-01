@@ -21,7 +21,7 @@ class baseCharts {
   }
   initBaseContainer(container) {
     const containerHtml = `
-    <div class="chart-container">
+    <div class="chart-container" id="line-mchartss">
       <div class="mcharts-container-chartstitle">${this.chartsTitle}</div>
       <div class="mcharts-container-charts" id="aa"></div>
     </div>`
@@ -29,32 +29,26 @@ class baseCharts {
     this.mchartsContainer = container.querySelector('.mcharts-container-charts')
 
     if(this.type === 'line') {
-      this.createElement()
-      
+      this.createElement() 
     }
   }
-  resize() {
-		window.addEventListener('resize', this.resizeDraw.bind(this))
-	}
-  resizeDraw() {
-    let dom = document.getElementById('line-mcharts')
-    let domaa = document.getElementById('aa')
-    let rect = util.clientRect(dom)
-    const {width} = rect
-    console.log(`{}}{}}{}{}{}`,rect)
-    this.chartsWidth = width
-    domaa.removeChild(this.containertem)
-    this.createElement()
-  }
   createElement() {
+
+    let dom = document.getElementById('line-mchartss')
+    let doms = document.getElementById('line-mcharts')
+    let domaa = document.getElementById('aa')
+    let domsvg = document.getElementById('svg')
+    if(domsvg) {
+      domaa.removeChild(domsvg)
+    }
     let svgDom = util.createSVG({
       width: this.chartsWidth,
       height: this.chartsHeight,
-      xmlns: "http://www.w3.org/2000/svg"
+      xmlns: "http://www.w3.org/2000/svg",
+      id: "svg"
     },'svg')
     this.mchartsContainer.appendChild(svgDom)
     this.containertem = svgDom
   }
 }
-
 export default baseCharts

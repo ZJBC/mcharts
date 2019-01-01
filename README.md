@@ -1,12 +1,20 @@
-## 步骤
+## 本地启动浏览步骤
 * 安装
 > npm install
 
-*启动
-> npm start
+* 启动
+> npm start    浏览http://0.0.0.0:9000/
+
+* 入口文件
+> https://github.com/ZJBC/mcharts/blob/master/index.js
 
 
-*如何使用
+
+## 在项目中使用
+* 安装
+>npm install mcharts    
+
+* 如何使用
 ```js
 import { Mcharts } from "mcharts"
   new Mcharts({
@@ -38,7 +46,3 @@ import { Mcharts } from "mcharts"
   })
 })
 ```
-
-
-
-## 在项目中可以使用 npm install mcharts 

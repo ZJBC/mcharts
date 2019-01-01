@@ -76,9 +76,55 @@ const drawX = (y2, xDiff, xTextDiff, xTextValue) => {
   drawXg.appendChild(drawXtest)
   return drawXg
 }
+//节流 deb  thr
+const mchartsDebounce =function(func, delay, isimmdeiate) {
+  let timer = null
+  return function() {
+    let context = this
+    let args = arguments
+    if(timer) {
+      clearTimeout(timer)
+    }
+    if(isimmdeiate) {
+      let dotime = !timer
+      timer = setTimeout(function(){
+        timer = null
+      },delay)
+      if(dotime) {
+        func.apply(context, args)
+      }
+    } else {
+      timer = setTimeout(function(){
+        func.apply(context, args)
+      }, delay)
+    }
+  }
+}
+const mchartsThrottle = function(func, delay) {
+  let startTime = Date.now()
+  return function() {
+    let context = this
+    let args = arguments
+    let currTime = Date.now()
+    let timer = null
+    
+    if(currTime - startTime >= delay) {
+      func.apply(context, args)
+      startTime = Date.now()
+    } else {
+      clearTimeout(timer)
+      timer = setTimeout(function(){
+        startTime = currTime
+        func.apply(context, args)
+      }, delay)
+    }
+  }
+}
 
 module.exports = {
   clientRect,
+  mchartsThrottle,
+  mchartsDebounce,
   transForm,
   positionByAngle,
   createSVG,  // 创建Svg

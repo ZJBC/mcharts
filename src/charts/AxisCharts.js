@@ -17,12 +17,16 @@ class AxisCharts extends baseCharts {
     this.yPositons = []
     this.xPosInterval = 0
     this.allVal = []
+    this.renderAxis()
+  }
+  renderAxis() {
     this.initAxisY()  // 创建Y
     this.initAxisX()   // 创建X
   }
-
+  // 创建X
   initAxisX() {
     // 创建X轴数据
+    this.xPositons = []
     let xVal = this.createAxisX()
     const xPosInterval = this.chartsWidth / this.diffLen
     this.xPosInterval = xPosInterval
@@ -50,15 +54,14 @@ class AxisCharts extends baseCharts {
     return labelsitem
   }
 
-
-
-
+  // 创建Y
   initAxisY() {
     // 创建Y轴数据
     let yVal = this.createAxisY()
     const yPosInterval = this.chartsHeight / this.diffLen
     yVal.map((value, index) => {
       const yDiff = this.chartsHeight - (yPosInterval * index)-25
+      // this.yPositons = []
       this.yPositons.push(yDiff)
       this.drawYAxis(value, yDiff)
     })
@@ -94,7 +97,6 @@ class AxisCharts extends baseCharts {
       // const value = interval+allVal[i]
       yAxisValues.push(Math.floor(value)-5)
     }
-    console.log("水电费发放更多的是", yAxisValues)
     return yAxisValues.sort(function(a,b){
       return a-b
     })

@@ -25,6 +25,38 @@ class Pie extends baseCharts {
     this.beginAngel = 0 // 开始初始角度
 
     this.init()
+    this.configs()
+  }
+  resizeDraw() {
+    util.mchartsThrottle(this.renderLine.bind(this), 1000)()
+  }
+  renderLine() {
+    let doms = document.getElementById('line-mcharts')
+    let rect = util.clientRect(doms)
+    this.chartsWidth = rect.width
+    this.raduis = Math.floor(this.chartsWidth/10)
+    console.log("fsffergresdfdsjfas ", this.raduis)
+    this.createElement()
+    this.init()
+  }
+  // renderAxis() {
+  //   // svg path路径
+  //   let svgPath = this.getSvgPath(pieScale)
+  //   this.getContainer()
+  //   this.addEvent()
+  //   this.render()
+  // }
+  createElement() {
+
+    let domaa = document.getElementById('aa')
+    let domsvg = document.getElementById('svg')
+    if(domsvg) {
+      domaa.removeChild(domsvg)
+    }
+    
+  }
+  configs() {
+		window.addEventListener('resize', this.resizeDraw.bind(this))
   }
   init() {
     // 计算总数量
@@ -73,12 +105,12 @@ class Pie extends baseCharts {
       if (endangle - startAngle > Math.PI) {
         largeFlag = 1
       }
-      let x1 = 200 + this.raduis * Math.sin(startAngle)
-      let y1 = 200 - this.raduis * Math.cos(startAngle)
-      let x2 = 200 + this.raduis * Math.sin(endangle)
-      let y2 = 200 - this.raduis * Math.cos(endangle)
+      let x1 = Math.floor(this.chartsWidth/2) + this.raduis * Math.sin(startAngle)
+      let y1 = Math.floor(this.chartsHeight/2) - this.raduis * Math.cos(startAngle)
+      let x2 = Math.floor(this.chartsWidth/2) + this.raduis * Math.sin(endangle)
+      let y2 = Math.floor(this.chartsHeight/2) - this.raduis * Math.cos(endangle)
       const path = 
-      `M${200+hoverDiff} ${200+hoverDiff}
+      `M${Math.floor(this.chartsWidth/2)+hoverDiff} ${Math.floor(this.chartsHeight/2)+hoverDiff}
       L ${x1+hoverDiff} ${y1+hoverDiff}
       A ${this.raduis} ${this.raduis} 0 ${largeFlag} 1 ${x2+hoverDiff} ${y2+hoverDiff}
       Z`
@@ -95,6 +127,7 @@ class Pie extends baseCharts {
     let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg:svg')
     svg.setAttribute('width', this.chartsWidth + '')
     svg.setAttribute('height', this.chartsHeight + '')
+    svg.setAttribute('id', "svg")
     svg.setAttribute('viewBox', '0 0 ' + this.chartsWidth + ' ' + this.chartsHeight)
     this.svgDom = svg
   }
