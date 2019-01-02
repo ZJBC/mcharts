@@ -15,7 +15,6 @@ class Pie extends baseCharts {
   constructor(arg) {
     super(arg)
     this.grandTotal = 0 // 总数
-    // this.raduis = 85 // 半径
     this.svgDom = null
     this.path = null
     this.pathActiveSliceIndex = null // 当前path index
@@ -39,21 +38,12 @@ class Pie extends baseCharts {
     this.createElement()
     this.init()
   }
-  // renderAxis() {
-  //   // svg path路径
-  //   let svgPath = this.getSvgPath(pieScale)
-  //   this.getContainer()
-  //   this.addEvent()
-  //   this.render()
-  // }
   createElement() {
-
     let domaa = document.getElementById('aa')
     let domsvg = document.getElementById('svg')
     if(domsvg) {
       domaa.removeChild(domsvg)
     }
-    
   }
   configs() {
 		window.addEventListener('resize', this.resizeDraw.bind(this))

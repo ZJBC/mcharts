@@ -129,7 +129,7 @@ class Line extends AxisCharts  {
   
   }
   getLinePath(values,colors) {
-    const yPositions = this.getYPosition(values)
+    const yPositions = util.getYPosition(values, this.yPositons)
    
     let yPositionsitem = yPositions.concat()
     yPositionsitem.reverse()
@@ -145,25 +145,14 @@ class Line extends AxisCharts  {
     },'path')
     return createPath
   }
-  getYPosition(values) {
-    const maxYValue = Math.max(...values)
-    const minYValue = Math.min(...values)
-    const maxYPosition = Math.max(...this.yPositons)
-    const minYPosition = Math.min(...this.yPositons)
-    const yInterval = (maxYPosition - minYPosition) / (maxYValue - minYValue)
-    return values.map((value) => {
-      return minYPosition + ((maxYValue - value) * yInterval)
-    })
-  }
   getCircle(values, colors, createCircleg, gLine) {
 
-    const yPositions = this.getYPosition(values)
+    const yPositions = util.getYPosition(values, this.yPositons)
    
     let yPositionsitem = yPositions.concat()
     yPositionsitem.reverse()
     this.yPositionsToolTip.push(yPositions)
     yPositionsitem.map((yval, index) => {
-      console.log("************************", yval)
       let createCircle = util.createSVG({
         "fill":`${colors}`,
         "cx": `${this.xPositons[index]}`,

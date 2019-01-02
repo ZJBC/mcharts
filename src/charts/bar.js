@@ -10,12 +10,69 @@ class Bar extends AxisCharts {
   constructor(arg) {
     super(arg)
     this.yPositionsToolTip = []
-    // this.tooltip = new Tooltip() // 提示拿过来
+    this.tooltip = new Tooltip() // 提示拿过来
     this.init()
   }
   init() {
     this.getBarrect()  // 新建bar
+    // 添加事件
+    this.addLineEvent()
+  }
+  addLineEvent() {
+    const {mchartsContainer} = this
+    mchartsContainer.addEventListener('mousemove', this.mouseMove.bind(this))
+    mchartsContainer.addEventListener('mouseleave', this.mouseLeave.bind(this))
+  }
+  mouseMove(e) {
+    const {mchartsContainer} = this
+    const {pageX, pageY} = e
+    let rect = util.clientRect(mchartsContainer)
+    let endX = pageX - rect.left
+    let endY = pageY - rect.top
+    const activeIndex = Math.floor(endX / this.xPosInterval)
+    this.hoverSlice(activeIndex, mchartsContainer)
+  }
+  mouseLeave() {
+    this.tooltip.getHideTooltip()
+  }
+  getConfigData(labels, configData, aindex, colors) {
+    let datas = configData.map(function(item, index){
+      return  {
+        title: item.title,
+        value: item.values[aindex],
+        colors: colors[index]
+      }
+    })
+    return datas
+  }
+  getYitemDatas(configData, aindex) {
+    let datas = configData.map(function(item, index){
+      return  item[aindex]
+    })
+    return datas
+  }
+  hoverSlice(i,mchartsContainer) {
+    const {labels,configData} = this
+    const {colors} = this.config
+    let xitem = this.xPositons.concat()
+    let yitem = this.yPositionsToolTip
 
+    let res = []
+    let yres = []
+    for(let aindex in labels) {
+      res.push(this.getConfigData(labels[aindex], configData, aindex, colors))
+      yres.push(this.getYitemDatas(yitem, aindex))
+    }
+    
+    let height = null
+    let mchartstip = document.getElementById('mcharts-tip')
+    if(mchartstip) {
+      let mchartsTipClient = util.clientRect(mchartstip)
+      height = mchartsTipClient.height
+    }
+    let y = height? Math.min(...yres[i]) :Math.min(...yres[i])
+    let x = xitem.reverse()[i]+34
+    this.tooltip.getShowTooltip(x, y, res[i], mchartsContainer, labels[i])
   }
   getBarrect() {
     // 根绝数据创建g
@@ -35,12 +92,12 @@ class Bar extends AxisCharts {
     containertem.appendChild(gLine)
   }
   getBarPath(values,colors) {
-    const yPositions = this.getYPosition(values)
+    const yPositions = util.getYPosition(values, this.yPositons)
     let yPositionsitem = yPositions.concat()
     yPositionsitem.reverse()
     this.yPositionsToolTip.push(yPositions)
     let lineList = yPositionsitem.map((yval, index) => {
-      let translatew  = this.xPositons[index]
+      let translatew  = this.xPositons[index]-10
 
       let createPath = util.createSVG({
         "x":0,
@@ -54,17 +111,6 @@ class Bar extends AxisCharts {
       return createPath
     })
     return lineList
-  }
-  getYPosition(values) {
-    console.log("L:L:L:L:L", values)
-    const maxYValue = Math.max(...values)
-    const minYValue = Math.min(...values)
-    const maxYPosition = Math.max(...this.yPositons)
-    const minYPosition = Math.min(...this.yPositons)
-    const yInterval = (maxYPosition - minYPosition) / (maxYValue - minYValue)
-    return values.map((value) => {
-      return minYPosition + ((maxYValue - value) * yInterval)
-    })
   }
 }
 

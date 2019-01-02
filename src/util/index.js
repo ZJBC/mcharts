@@ -123,20 +123,18 @@ const mchartsThrottle = function(func, delay) {
     }
   }
 }
-const drawXBarText = (y2, xDiff, xTextValue) => {
-  let drawXg = createSVG({
-    "stroke-opacity": 1,
-    "transform": `translate(${xDiff}, 0)`
-  },"g")
-  let drawXtest = createSVG({
-    x:-10,
-    y:y2+10,
-    text: xTextValue
-  }, 'text')
-  drawXg.appendChild(drawXtest)
-  return drawXg
-}
 
+// y轴上的值
+const getYPosition = (values,yPositons) => {
+  const maxYValue = Math.max(...values)
+  const minYValue = Math.min(...values)
+  const maxYPosition = Math.max(...yPositons)
+  const minYPosition = Math.min(...yPositons)
+  const yInterval = (maxYPosition - minYPosition) / (maxYValue - minYValue)
+  return values.map((value) => {
+    return minYPosition + ((maxYValue - value) * yInterval)
+  })
+}
 
 module.exports = {
   clientRect,
@@ -147,5 +145,5 @@ module.exports = {
   createSVG,  // 创建Svg
   drawY, // 画Y轴
   drawX, // 画X轴
-  drawXBarText, // 画X轴柱状图drawXBarText
+  getYPosition,
 }
