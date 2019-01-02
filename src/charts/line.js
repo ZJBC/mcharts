@@ -121,7 +121,8 @@ class Line extends AxisCharts  {
 
        let createCircleg = this.getCircleG()
        this.getCircle(item.values, colors[index], createCircleg, gLine)
-
+       console.log("{}{}{}{}{}", gLine)
+       console.log("P{OPPKIHBVVUIHJOIUYVCVHJKL<MKJBHGFCVHBJK", createPath)
        gLine.appendChild(createPath)
        containertem.appendChild(gLine)  // 连线
     })
@@ -162,6 +163,7 @@ class Line extends AxisCharts  {
     yPositionsitem.reverse()
     this.yPositionsToolTip.push(yPositions)
     yPositionsitem.map((yval, index) => {
+      console.log("************************", yval)
       let createCircle = util.createSVG({
         "fill":`${colors}`,
         "cx": `${this.xPositons[index]}`,

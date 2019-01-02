@@ -54,25 +54,28 @@ const drawY = (x1, x2, yDiff, yTextDiff, yTextValue) => {
   drawYg.appendChild(drawYtest)
   return drawYg
 }
-const drawX = (y2, xDiff, xTextDiff, xTextValue) => {
-  let drawXline = createSVG({
-    x1: 0,
-    x2: 0,
-    y1: 0,
-    y2: y2,
-    "stroke-width": 1,
-    "stroke": "#dadada",
-  },"line")
+const drawX = (y2, xDiff, xTextDiff, xTextValue, type) => {
   let drawXg = createSVG({
     "stroke-opacity": 1,
     "transform": `translate(${xDiff}, 0)`
   },"g")
+  if(type === 'line') {
+    let drawXline = createSVG({
+      x1: 0,
+      x2: 0,
+      y1: 0,
+      y2: y2,
+      "stroke-width": 1,
+      "stroke": "#dadada",
+    },"line")
+    drawXg.appendChild(drawXline)
+  }
   let drawXtest = createSVG({
     x:-10,
     y:y2+10,
     text: xTextValue
   }, 'text')
-  drawXg.appendChild(drawXline)
+  
   drawXg.appendChild(drawXtest)
   return drawXg
 }
@@ -120,6 +123,20 @@ const mchartsThrottle = function(func, delay) {
     }
   }
 }
+const drawXBarText = (y2, xDiff, xTextValue) => {
+  let drawXg = createSVG({
+    "stroke-opacity": 1,
+    "transform": `translate(${xDiff}, 0)`
+  },"g")
+  let drawXtest = createSVG({
+    x:-10,
+    y:y2+10,
+    text: xTextValue
+  }, 'text')
+  drawXg.appendChild(drawXtest)
+  return drawXg
+}
+
 
 module.exports = {
   clientRect,
@@ -130,4 +147,5 @@ module.exports = {
   createSVG,  // 创建Svg
   drawY, // 画Y轴
   drawX, // 画X轴
+  drawXBarText, // 画X轴柱状图drawXBarText
 }

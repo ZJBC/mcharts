@@ -17,26 +17,22 @@ class baseCharts {
     this.mchartsContainer = null
     this.raduis = radius >400? 180: radius
     this.initBaseContainer(container)
-    // this.resize()
   }
   initBaseContainer(container) {
     const containerHtml = `
     <div class="chart-container" id="line-mchartss">
       <div class="mcharts-container-chartstitle">${this.chartsTitle}</div>
-      <div class="mcharts-container-charts" id="aa"></div>
+      <div class="mcharts-container-charts" id="mcharts-container-charts"></div>
     </div>`
     container.innerHTML = containerHtml  // 设置外层容器
     this.mchartsContainer = container.querySelector('.mcharts-container-charts')
 
-    if(this.type === 'line') {
+    if(this.type === 'line' || this.type === 'bar') {
       this.createElement() 
     }
   }
   createElement() {
-
-    let dom = document.getElementById('line-mchartss')
-    let doms = document.getElementById('line-mcharts')
-    let domaa = document.getElementById('aa')
+    let domaa = document.getElementById('mcharts-container-charts')
     let domsvg = document.getElementById('svg')
     if(domsvg) {
       domaa.removeChild(domsvg)

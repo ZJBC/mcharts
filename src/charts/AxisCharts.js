@@ -17,11 +17,17 @@ class AxisCharts extends baseCharts {
     this.yPositons = []
     this.xPosInterval = 0
     this.allVal = []
+
+
+
     this.renderAxis()
   }
   renderAxis() {
     this.initAxisY()  // 创建Y
-    this.initAxisX()   // 创建X
+    this.initAxisX()  // 创建X
+  }
+  initAxisXText() {
+
   }
   // 创建X
   initAxisX() {
@@ -41,9 +47,8 @@ class AxisCharts extends baseCharts {
     let rect = util.clientRect(containertem)
     let xTextDiff = 4
     const {height} = rect
-    const xLine = util.drawX(height-10, xDiff, xTextDiff, xTextValue)
-    
-    containertem.appendChild(xLine)
+    const xLine = util.drawX(height-10, xDiff, xTextDiff, xTextValue,  this.type)  // 创建line  x
+    containertem.appendChild(xLine) 
   }
   createAxisX() {
     return this.getAxisXValue()
@@ -61,7 +66,6 @@ class AxisCharts extends baseCharts {
     const yPosInterval = this.chartsHeight / this.diffLen
     yVal.map((value, index) => {
       const yDiff = this.chartsHeight - (yPosInterval * index)-25
-      // this.yPositons = []
       this.yPositons.push(yDiff)
       this.drawYAxis(value, yDiff)
     })
@@ -94,7 +98,6 @@ class AxisCharts extends baseCharts {
     for (let i = 0; i < this.diffLen; i++) {
       const firstValue = middle - interval * 3
       const value = firstValue + (interval * i)
-      // const value = interval+allVal[i]
       yAxisValues.push(Math.floor(value)-5)
     }
     return yAxisValues.sort(function(a,b){
