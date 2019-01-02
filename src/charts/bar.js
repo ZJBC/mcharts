@@ -28,7 +28,6 @@ class Bar extends AxisCharts {
     const {pageX, pageY} = e
     let rect = util.clientRect(mchartsContainer)
     let endX = pageX - rect.left
-    let endY = pageY - rect.top
     const activeIndex = Math.floor(endX / this.xPosInterval)
     this.hoverSlice(activeIndex, mchartsContainer)
   }
@@ -65,13 +64,15 @@ class Bar extends AxisCharts {
     }
     
     let height = null
+    let width = null
     let mchartstip = document.getElementById('mcharts-tip')
     if(mchartstip) {
       let mchartsTipClient = util.clientRect(mchartstip)
       height = mchartsTipClient.height
+      width = mchartsTipClient.width
     }
-    let y = height? Math.min(...yres[i]) :Math.min(...yres[i])
-    let x = xitem.reverse()[i]+34
+    let y = Math.min(...yres[i])
+    let x = width? xitem.reverse()[i]+width/2-5*configData.length-15: xitem.reverse()[i]
     this.tooltip.getShowTooltip(x, y, res[i], mchartsContainer, labels[i])
   }
   getBarrect() {
@@ -83,32 +84,34 @@ class Bar extends AxisCharts {
     },'g')
     const {containertem} = this
     let createPath = configData.map((item, index)=> {
-      return this.getBarPath(item.values, colors[index])
-    })[0]
-    createPath.forEach(element => {
-      gLine.appendChild(element)
+      return this.getBarPath(item.values, colors[index],index+1, (configData.length+1) *10)
     })
-   
+    createPath.forEach(element => {
+      element.forEach(item => {
+        gLine.appendChild(item)
+      })
+    })
     containertem.appendChild(gLine)
   }
-  getBarPath(values,colors) {
+  getBarPath(values,colors, num, xnum) {
     const yPositions = util.getYPosition(values, this.yPositons)
     let yPositionsitem = yPositions.concat()
     yPositionsitem.reverse()
     this.yPositionsToolTip.push(yPositions)
-    let lineList = yPositionsitem.map((yval, index) => {
-      let translatew  = this.xPositons[index]-10
 
+    let lineList = yPositionsitem.map((yval, index) => {
+      let translatew  = this.xPositons[index]+num*10
       let createPath = util.createSVG({
         "x":0,
         "y":yval,
         "height": this.chartsHeight-yval-20,
         "width":10,
         "stroke-width":1,
-        "style":`stroke:${colors}; fill: none;`,
-        "transform": `translate(${translatew}, 0)`,
+        "style":`stroke:${colors}; fill: ${colors};`,
+        "transform": `translate(${translatew-xnum}, 0)`,
       },'rect')
       return createPath
+      
     })
     return lineList
   }

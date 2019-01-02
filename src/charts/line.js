@@ -47,7 +47,6 @@ class Line extends AxisCharts  {
     const {pageX, pageY} = e
     let rect = util.clientRect(mchartsContainer)
     let endX = pageX - rect.left
-    let endY = pageY - rect.top
     const activeIndex = Math.floor(endX / this.xPosInterval)
     if(activeIndex>=this.diffLen) {
       this.mouseLeave()
@@ -121,8 +120,6 @@ class Line extends AxisCharts  {
 
        let createCircleg = this.getCircleG()
        this.getCircle(item.values, colors[index], createCircleg, gLine)
-       console.log("{}{}{}{}{}", gLine)
-       console.log("P{OPPKIHBVVUIHJOIUYVCVHJKL<MKJBHGFCVHBJK", createPath)
        gLine.appendChild(createPath)
        containertem.appendChild(gLine)  // 连线
     })

@@ -18,8 +18,8 @@
 ```js
 import { Mcharts } from "mcharts"
   new Mcharts({
-    container: document.getElementById('line-mcharts'),
-    title: 'line-mcharts',
+    container: document.getElementById('line-mcharts'),  // bar-mcharts  pie-mcharts
+    title: 'line-mcharts',   // bar-mcharts  pie-mcharts
     data: {
       labels: ["a1", "a2","a3","a4","a5","a6","a7","a8"],  // pie
       // labels: ["12am-3am", "3am-6am"],   // line
@@ -41,8 +41,9 @@ import { Mcharts } from "mcharts"
     // type: 'line',
     // colors: [ 'red', '#000', '#7cd6fd']
     
-    type: 'pie', //  现在支持  pie饼图  line 折线图
-    colors: [ 'red', '#000', '#7cd6fd', '#000', 'red', '#7cd6fd', '#ccc', 'blue']
+    type: 'pie', //  现在支持  pie饼图  line 折线图  bar 柱状图
+    colors: [ 'red', '#000', '#7cd6fd', '#000', 'red', '#7cd6fd', '#ccc', 'blue'],
+    radius: 80  // 半径
   })
 })
 ```
