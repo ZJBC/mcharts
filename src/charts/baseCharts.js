@@ -27,7 +27,7 @@ class baseCharts {
     container.innerHTML = containerHtml  // 设置外层容器
     this.mchartsContainer = container.querySelector('.mcharts-container-charts')
 
-    if(this.type === 'line' || this.type === 'bar') {
+    if(this.type === 'line' || this.type === 'bar' || this.type === 'scatter') {
       this.createElement() 
     }
   }
